@@ -1,0 +1,6 @@
+wallcake 1.0: download random picture online and set it as wallpaper
+and... unrestfully :)
+
+Dependency:
+    * feh
+    * curl
