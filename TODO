@@ -1,0 +1,5 @@
+1. Options:
+    * directory path for saving pictures (when -s is provided)
+    * refresh time
+    * screen resolution
+2. Config sourcing
