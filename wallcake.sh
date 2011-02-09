@@ -46,6 +46,14 @@ fi
 while true; do
     #idle interval
     sleep 15m
+    ping_result=`ping -c 1 wallbase.net |
+            grep 'from' |
+            wc -l`
+    if [ $ping_result -eq 0 ]
+    then
+        echo "Network unavailable, will try 15m later."
+        continue
+    fi
 
     #wallbase.net random SFW wallpapers
     seed=`rand -M 20`
