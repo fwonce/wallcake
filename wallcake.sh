@@ -1,43 +1,40 @@
 #!/bin/sh
-#wallcake 1.1: download random picture online and set it as wallpaper
+#wallcake 1.2: download random picture online and set it as wallpaper
 #fwonce <fwonce@gmail.com>
 #last modified: 2011-02-01
 
+idle_time=15m
 tmp_dir=/tmp/wallcake
 tmp_pic=$tmp_dir/cake.jpg
 tmp_lck=$tmp_dir/.lock
-wp_repo=/media/DOC/pictures/wallpapers/
+wp_repo=/media/DOC/pictures/wallpapers
 query_url='http://wallbase.net/random/21/eqeq/1366x768/0/100/20'
 url_base='http://wallbase.net/wallpaper/'
 
 #handle argument
-if [ $# -gt 0 ]
-then
-    if [ "$1" = "-s" -o "$1" = "--save-current" ]
-    then
-        if [ -f $tmp_pic ]
-        then
-            if [ $2 ]
-            then
-                if [ -f $tmp_lck ]; then
-                    echo "new wallpaper is being applied, can't save the current one."
-                else
-                    cp -i $tmp_pic $wp_repo$2
-                    echo "save to $wp_repo$2"
-                fi
-            else
-                echo "usage: $0 $1 filename"
-            fi
+while getopts s:i:r: option; do
+    case "$option" in
+    s)
+        if [ -f $tmp_lck ]; then
+            echo "new wallpaper being applied, can't save previous one."
+            exit 1
         else
-            echo 'no cake found'
+            cp -iv $tmp_pic $wp_repo/$OPTARG.jpg
+            exit 0
         fi
-        exit
-    else
-        echo "unrecognized argument: $1"
-        exit
-    fi
-fi
-
+        ;;
+    i)
+        #TODO verify NUMBER, see info coreutils 'sleep invocation'
+        idle_time=$OPTARG
+    r)
+        if [ ! -d $OPTARG ]; then
+            echo "Not a directory: $OPTARG"
+            exit 1
+        else
+            wp_repo=$OPTARG
+        fi
+    esac
+done
 
 #take the first random shot
 find $wp_repo -type f -iregex '.*\(jpg\|png\)' -print0 |
@@ -49,13 +46,13 @@ if [ ! -d $tmp_dir ]; then
 fi
 
 while true; do
-    #idle interval
-    sleep 10
+    #idle time
+    sleep $idle_time
     ping_result=`ping -c 1 wallbase.net |
             grep 'from' |
             wc -l`
     if [ $ping_result -eq 0 ]; then
-        echo "Network unavailable, will try 15m later."
+        echo "Network unavailable, will try $idle_time later."
         continue
     fi
 
