@@ -26,6 +26,7 @@ while getopts s:i:r: option; do
     i)
         #TODO verify NUMBER, see info coreutils 'sleep invocation'
         idle_time=$OPTARG
+        ;;
     r)
         if [ ! -d $OPTARG ]; then
             echo "Not a directory: $OPTARG"
@@ -33,6 +34,7 @@ while getopts s:i:r: option; do
         else
             wp_repo=$OPTARG
         fi
+        ;;
     esac
 done
 
