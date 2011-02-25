@@ -12,7 +12,7 @@ query_url='http://wallbase.net/random/21/eqeq/1366x768/0/100/20'
 url_base='http://wallbase.net/wallpaper/'
 
 #handle argument
-while getopts s:i:r: option; do
+while getopts s:i:r:h option; do
     case "$option" in
     s)
         if [ -f $tmp_lck ]; then
@@ -34,6 +34,17 @@ while getopts s:i:r: option; do
         else
             wp_repo=$OPTARG
         fi
+        ;;
+    h)
+        echo "Wallcake v1.0 retrives wallpapers from wallbase.net automatically"
+        echo ""
+        echo "-s new_name"
+        echo "   save current wallpaper"
+        echo "-i idle_time"
+        echo "   idle time after wallpaper changed"
+        echo "-r directory"
+        echo "   directory in which the selected wallpaper will be saved (when -s is applied)"
+        exit 0
         ;;
     esac
 done
