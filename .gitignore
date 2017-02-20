@@ -1,0 +1,15 @@
+.DS_Store
+.classpath
+.project
+.settings
+*.iml
+*.patch
+*.diff
+*.tree
+*.out
+*.swp
+**/.idea/*
+**/target/*
+**/bin/*
+**/.idea/*
+antx.properties

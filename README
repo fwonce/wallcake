@@ -1,6 +1,5 @@
-wallcake 1.0: download random picture online and set it as wallpaper
+Wallcake: download random picture online and set it as wallpaper
 and... unrestfully :)
 
-Dependency:
-    * feh
-    * curl
+Back to the time I wrote this, there is a great site called Wallbase but it's been shut down since 2014.
+Now this works with Wallhaven, a successive one of Wallbase.
